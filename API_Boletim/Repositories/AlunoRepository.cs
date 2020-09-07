@@ -17,9 +17,25 @@ namespace API_Boletim.Repositories
         // Chamamos o objeto que poderá receber e executar os comando do banco
         SqlCommand cmd = new SqlCommand();
 
-        public Aluno Alterar(Aluno a)
+        public Aluno Alterar(int id, Aluno a)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "UPDATE Aluno SET " + 
+                "Nome = @nome, "
+                + "Ra = @ra, " +
+                "Idade = @idade WHERE IdAluno = @id ";
+
+            cmd.Parameters.AddWithValue("@nome", a.Nome);
+            cmd.Parameters.AddWithValue("@ra", a.RA);
+            cmd.Parameters.AddWithValue("@idade", a.Idade);
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
+            return a;
         }
 
         public Aluno BuscarPorId(int id)
@@ -63,12 +79,21 @@ namespace API_Boletim.Repositories
             // Será este comando o responsável por injetar os dados no banco efetivamente
             cmd.ExecuteNonQuery();
 
+            conexao.Desconectar();
+
             return a;
         }
 
-        public Aluno Excluir(Aluno a)
+        public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "DELETE FROM Aluno WHERE IdAluno = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
         }
 
         public List<Aluno> LerTodos()
