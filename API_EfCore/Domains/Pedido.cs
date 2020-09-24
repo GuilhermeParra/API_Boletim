@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace API_EfCore.Domains
 {
-    public class Pedido
+    public class Pedido : BaseDomains
     {
-        [Key]
-        public Guid Id { get; set; }
+        
         public string Status { get; set; }
         public DateTime OrderDate { get; set; }
 
-        public Pedido()
-        {
-            Id = Guid.NewGuid();
-        }
+        
     }
 }

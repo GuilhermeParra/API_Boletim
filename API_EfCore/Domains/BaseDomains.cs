@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace API_EfCore.Domains
 {
-    //Define a classe produto
-    public class Produto : BaseDomains
+    public abstract class BaseDomains
     {
-        
-        public string Nome { get; set; }
-        public float Preco { get; set; }
-
-        public Produto()
+        [Key]
+        public Guid Id { get; set; }
+        public BaseDomains()
         {
             Id = Guid.NewGuid();
         }
-
     }
 }
